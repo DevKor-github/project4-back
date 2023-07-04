@@ -1,55 +1,55 @@
-import express from 'express';
-import http from 'http';
+import express from "express";
+import http from "http";
 
-import dataSource from './config/dataSource.js';
-import router from './router/index.js';
-import errorHandler from './middlewares/errorHandler.js';
+import dataSource from "./config/dataSource.js";
+import router from "./router/index.js";
+import errorHandler from "./middlewares/errorHandler.js";
 
 const connectDB = async () => {
-	try {
-		await dataSource.initialize();
-		console.log('DB connected!');
-	} catch (err) {
-		console.error(err);
-	}
+  try {
+    await dataSource.initialize();
+    console.log("DB connected!");
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const loadExpressApp = async () => {
-	await connectDB();
+  await connectDB();
 
-	const app = express();
-	app.use(express.json());
+  const app = express();
+  app.use(express.json());
 
-	app.use(router);
-	app.use(errorHandler);
-	app.all('*', (_, res) => {
-		res.status(404).json({
-			data: null,
-			error: {
-				message: 'URL Not Found',
-			},
-		});
-	});
+  app.use(router);
+  app.use(errorHandler);
+  app.all("*", (_, res) => {
+    res.status(404).json({
+      data: null,
+      error: {
+        message: "URL Not Found",
+      },
+    });
+  });
 
-	return app;
+  return app;
 };
 
 const startServer = async () => {
-	const app = await loadExpressApp();
+  const app = await loadExpressApp();
 
-	const server = http.createServer(app);
+  const server = http.createServer(app);
 
-	const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 3000;
 
-	server.listen(port, () => {
-		console.log(`Server is listening on port ${port}`);
-	});
+  server.listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
+  });
 };
 
 startServer()
-	.then(() => {
-		console.log('Server started!');
-	})
-	.catch((err) => {
-		console.error(err);
-	});
+  .then(() => {
+    console.log("Server started!");
+  })
+  .catch((err) => {
+    console.error(err);
+  });
