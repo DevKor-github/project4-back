@@ -7,44 +7,14 @@ dotenv.config();
 
 const prfRepository = dataSource.getRepository("prf");
 
-/*
-const insertPrf = async (name) => {};
-
-const findPrf = async (id) => {
-  const exist = await prfRepository.findOne(id);
-
-  if (exist) {
-    //행이 존재. 업데이트.
-    await prfRepository.update(
-      { prfId: obj.mt20id },
-      {
-        prfName: obj.prfnm,
-        prfPeriodFrom: obj.prfpdfrom,
-        prfPeriodTo: obj.prfpdto,
-        fcltyName: obj.fcltynm,
-        prfGenre: obj.genrenm,
-      }
-    );
-  } else {
-    await prfRepository.insert({
-      prfId: obj.mt20id,
-      prfName: obj.prfnm,
-      prfPeriodFrom: obj.prfpdfrom,
-      prfPeriodTo: obj.prfpdto,
-      fcltyName: obj.fcltynm,
-      prfGenre: obj.genrenm,
-    });
-    //행이 없음. 생성.
-  }
-};
-*/
 export const Update = async () => {
   try {
+    //prfGetData 모듈에서 JSON으로 변환된 OpenAPI 데이터 가져오기
     const jsonStr = await prfGetData.xmlToJson();
     const jsonData = JSON.parse(jsonStr);
 
     for (const obj of jsonData) {
-      console.log(obj.mt20id);
+      //각 공연 obj에 대해서 업데이트 혹은 생성
       const exist = await prfRepository.findOne({
         where: { prfId: obj.mt20id },
       });
@@ -61,7 +31,9 @@ export const Update = async () => {
             prfGenre: obj.genrenm,
           }
         );
+        console.log(`prfID : ${obj.mt20id} is updated`);
       } else {
+        //행이 없음. 생성.
         await prfRepository.insert({
           prfId: obj.mt20id,
           prfName: obj.prfnm,
@@ -70,11 +42,9 @@ export const Update = async () => {
           fcltyName: obj.fcltynm,
           prfGenre: obj.genrenm,
         });
-        //행이 없음. 생성.
+        console.log(`prfID : ${obj.mt20id} is inserted`);
       }
     }
-
-    //res.status(200).xml(jsonData);
   } catch (err) {
     console.error(err);
   }

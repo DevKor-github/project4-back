@@ -1,5 +1,7 @@
 import { EntitySchema } from "typeorm";
 
+//공연 목록에서 노출되는 공연 정보 schema
+
 const prfSchema = new EntitySchema({
   name: "prf",
   tableName: "prf",

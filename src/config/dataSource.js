@@ -21,5 +21,3 @@ const dataSource = new typeorm.DataSource({
 });
 
 export default dataSource;
-//
-//https://www.kopis.or.kr/openApi/restful/pblprfr?service=d501faa9438a4a1aab402ef7438d8258&stdate=20230101&eddate=20231231&cpage=1&rows=5&shcate=CCCD

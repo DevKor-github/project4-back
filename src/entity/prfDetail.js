@@ -1,5 +1,6 @@
 import { EntitySchema } from "typeorm";
 
+//공연 상세 schema
 const prfDetailSchema = new EntitySchema({
   name: "prfDetail",
   tableName: "prfDetail",
