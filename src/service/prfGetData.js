@@ -14,11 +14,13 @@ export const xmlToJson = async () => {
     const xmlData = await axios.get(
       `http://www.kopis.or.kr/openApi/restful/pblprfr?service=${process.env.API_KEY}&stdate=20230101&eddate=20231231&cpage=1&rows=10&shcate=CCCD`
     );
+    //대중음악 장르의 2023년 공연 10개를 가져와서 업데이트(추후 수정)
+
     const result = await parseStringPromise(xmlData.data);
     const jsonData = result.dbs.db;
     const jsonStr = JSON.stringify(result.dbs.db, null, 4);
 
-    console.log(jsonStr);
+    //console.log(jsonStr);
     return jsonStr;
   } catch (err) {
     console.error(err);
