@@ -8,3 +8,15 @@ export const getPrfList = async (req, res, next) => {
 		next(err);
 	}
 };
+
+export const fetchData = async (req, res) => {
+	try {
+	  await prfService.fetchData(); 
+	  console.log("I'm in fetchData");
+	  res.json({ message: 'Data fetched and saved successfully.'});
+	} catch (error) {
+	  console.error(error);
+	  res.status(500).json({ error: 'An error occurred' });
+	}
+  };
+  

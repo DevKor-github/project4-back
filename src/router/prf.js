@@ -3,6 +3,6 @@ import * as prfController from '../controller/prf.js';
 
 const router = express.Router();
 
-router.get('/', prfController.getPrfList);
+router.post('/', prfController.getPrfList);
 
 export default router;
