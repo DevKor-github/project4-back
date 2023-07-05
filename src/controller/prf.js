@@ -33,6 +33,7 @@ export const getSearchedPrfList = async (req, res, next) => {
 export const dbUpdate = async (req, res, next) => {
   try {
     await prfUpdate.Update();
+    res.status(200).send("Successfully Updated");
   } catch (err) {
     next(err);
   }
