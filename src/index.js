@@ -1,6 +1,9 @@
 import express from 'express';
 import http from 'http';
 
+import prfUpdate from './service/prfUpdate.js';
+
+
 import dataSource from './config/dataSource.js';
 import router from './router/index.js';
 import errorHandler from './middlewares/errorHandler.js';
@@ -53,3 +56,5 @@ startServer()
 	.catch((err) => {
 		console.error(err);
 	});
+
+if(process.env.STATUS === "need update") prfUpdate();//status가 need update이면 업데이트 실행

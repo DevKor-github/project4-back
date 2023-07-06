@@ -5,14 +5,34 @@ const prfSchema = new EntitySchema({
 	tableName: 'prf',
 	columns: {
 		id: {
-			type: 'int',
-			primary: true,
-			generated: true,
+			type: 'varchar',
+			length: 255,
 		},
 		name: {
 			type: 'varchar',
 			length: 255,
 		},
+		prfpdfrom: {
+			type: 'varchar',
+			length: 255,
+		},
+		prfpdto: {
+			type: 'varchar',
+			length: 255,
+		},
+		price: {
+			type: 'varchar',
+			length: 255,
+		},
+		runtime: {
+			type: 'varchar',
+			length: 255,
+		},
+		dtguidance: {
+			type: 'varchar',
+			length: 255,
+		},
+
 	},
 });
 
