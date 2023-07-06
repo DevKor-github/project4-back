@@ -1,4 +1,5 @@
 import * as prfService from '../service/prfService.js';
+// import * as api from '../service/api.js';
 
 export const getPrfList = async (req, res, next) => {
 	try {
@@ -9,14 +10,10 @@ export const getPrfList = async (req, res, next) => {
 	}
 };
 
-export const fetchData = async (req, res) => {
+export const postData = async (req,res,next) => {
 	try {
-	  await prfService.fetchData(); 
-	  console.log("I'm in fetchData");
-	  res.json({ message: 'Data fetched and saved successfully.'});
-	} catch (error) {
-	  console.error(error);
-	  res.status(500).json({ error: 'An error occurred' });
+		await api.postData();
+	} catch (err) {
+		next(err);
 	}
-  };
-  
+}

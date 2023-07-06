@@ -1,9 +1,9 @@
 import dataSource from '../config/dataSource.js';
+import { xml2js } from 'xml-js';
 import axios from 'axios';
 
-const prfRepository = dataSource.getRepository('prf');
-
-const insertPrf = async (name) => {};
+export const prfRepository = dataSource.getRepository('prf');
+const API_KEY = process.env.API_KEY;
 
 export const getPrfList = async () => {
 	try {
@@ -15,40 +15,43 @@ export const getPrfList = async () => {
 };
 
 const url = "http://kopis.or.kr/openApi/restful/pblprfr/" ;
-const API_KEY="44173fd6cde14917b6597c62b6675604";
 
-
-const fetchData = async () => {
-  try {
-    const response = await axios.get(url+API_KEY);
-    const data = response.data;
-    
-    const prfStorage = dataSource.getRepository('prf')
-
-	for (const item of data) {
-		const prf = new prf();
-		prf.mt20id = item.mt20id;
-		prf.mt10id = item.mt10id;
-		prf.prfnm = item.prfnm;
-		prf.prfpdfrom = item.prfpdfrom;
-		prf.prfpdto = item.prfpdto;
-		prf.fcltynm = item.fcltynm;
-		prf.prfcast = item.prfcast;
-		prf.prfcrew = item.prfcrew;
-		prf.prfruntime = item.prfruntime;
-		prf.prfage = item.prfage;
-		prf.entrpsnm = item.entrpsnm;
-		prf.pcseguidance = item.pcseguidance;
-		prf.poster = item.poster;
-		prf.sty = item.sty;
-		prf.genrenm = item.genrenm;
-		prf.prfstate = item.prfstate;
-		prf.openrun = item.openrun;
-		prf.styurls = item.styurls;
-		prf.dtguidance = item.dtguidance;
-
-		await prfStorage.save(prf)
+const insertPrf = async (data) => {
+	try {
+	  const result = await prfRepository.save({
+		mt20id: data.mt20id,
+		mt10id: data.mt10id,
+		prfnm: data.prfnm,
+		prfpdfrom: new Date(data.prfpdfrom),
+		prfpdto: new Date(data.prfpdto),
+		fcltynm: data.fcltynm,
+		prfcast: data.prfcast,
+		prfcrew: data.prfcrew,
+		prfruntime: data.prfruntime,
+		prfage: data.prfage,
+		entrpsnm: data.entrpsnm,
+		pcseguidance: data.pcseguidance,
+		poster: data.poster,
+		sty: data.sty,
+		genrenm: data.genrenm,
+		prfstate: data.prfstate,
+		openrun: data.openrun,
+		styurls: data.styurls,
+		dtguidance: data.dtguidance,
+	  });
+  
+	  console.log('well inserted:', result);
+	} catch (error) {
+	  console.error('fail to insert data:', error);
 	}
+  };
+
+export const postData = async () => {
+  try {
+    const response = await axios.get(url+"PF132236?service="+API_KEY);
+    const data = response.data.json();
+	const dataJson = xml2js(data);
+	insertPrf(dataJson);
 
   } catch (error) {
     console.error(error);
