@@ -23,9 +23,12 @@ const prfDetailSchema = new EntitySchema({
     }, //mt20Id=PF220055
     fcltyName: { type: "varchar" },
     prfCast: { type: "varchar" },
+    prfRuntime: { type: "varchar" },
+    prfAge: { type: "varchar" },
     prfPrice: { type: "varchar" },
     prfGenre: { type: "varchar" },
-    prfRuntime: { type: "varchar" },
+    prfState: { type: "varchar" },
+    prfPoster: { type: "varchar" },
   },
 });
 

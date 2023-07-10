@@ -1,7 +1,4 @@
 import * as prfService from "../service/prfService.js";
-import * as prfGetData from "../service/prfGetData.js";
-import * as prfUpdate from "../service/prfUpdate.js";
-import * as prfSearch from "../service/prfSearch.js";
 
 export const getPrfList = async (req, res, next) => {
   try {
@@ -18,11 +15,13 @@ export const getSearchedPrfList = async (req, res, next) => {
     const periodFrom = new Date(req.query.periodFrom || "2000-01-01");
     const periodTo = new Date(req.query.periodTo || "2099-12-31");
     const fcltyName = req.query.fcltyName;
-    const prfList = await prfSearch.getSearchedPrfList(
+    const prfGenre = req.query.prfGenre;
+    const prfList = await prfService.getSearchedPrfList(
       prfName,
       periodFrom,
       periodTo,
-      fcltyName
+      fcltyName,
+      prfGenre
     );
     res.status(200).json(prfList);
   } catch (err) {
@@ -32,7 +31,7 @@ export const getSearchedPrfList = async (req, res, next) => {
 
 export const dbUpdate = async (req, res, next) => {
   try {
-    await prfUpdate.Update();
+    await prfService.Update();
     res.status(200).send("Successfully Updated");
   } catch (err) {
     next(err);
