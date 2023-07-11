@@ -3,11 +3,13 @@ import axios from "axios";
 import xml2js, { parseString } from "xml2js";
 import { promisify } from "util";
 import { LessThanOrEqual, MoreThanOrEqual, Like } from "typeorm";
+import schedule from "node-schedule";
 
 const prfRepository = dataSource.getRepository("prfDetail");
 const parser = new xml2js.Parser({ trim: true });
 const parseStringPromise = promisify(parser.parseString);
 
+//모든 리스트 가져오기
 export const getPrfList = async () => {
   try {
     const prfList = await prfRepository.find();
@@ -17,10 +19,10 @@ export const getPrfList = async () => {
   }
 };
 
+//API에 get 요청해서 가져온 xml을 javascript 객체로 변환
 const xmlToJson = async (URL) => {
   try {
     const xmlData = await axios.get(URL);
-    //API에 get 요청해서 가져온 xml을 javascript 객체로 변환
 
     const result = await parseStringPromise(xmlData.data);
     const jsonData = result.dbs.db;
@@ -73,6 +75,18 @@ export const Update = async () => {
   }
 };
 
+//node-schedule단
+const automaticUpdate = new schedule.RecurrenceRule();
+automaticUpdate.dayOfWeek = 3;
+automaticUpdate.hour = 0;
+automaticUpdate.minute = 0;
+automaticUpdate.tz = "Asia/Seoul";
+
+schedule.scheduleJob(automaticUpdate, () => {
+  Update();
+});
+
+//이름, 기간, 시설, 장르로 검색
 export const getSearchedPrfList = async (
   prfName,
   periodFrom,
