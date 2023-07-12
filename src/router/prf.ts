@@ -1,8 +1,7 @@
-import express from "express";
+import * as express from "express";
 import * as prfController from "../controller/prf.js";
-import schedule from "node-schedule";
 
-const router = express.Router();
+const router: any = express.Router();
 
 router.get("/", prfController.getPrfList);
 //전체 리스트 받아오기

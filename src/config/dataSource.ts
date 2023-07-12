@@ -1,15 +1,15 @@
-import typeorm from "typeorm";
-import dotenv from "dotenv";
+import * as typeorm from "typeorm";
+import * as dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 
 dotenv.config();
 
-const fileURL = import.meta.url;
-const filePath = fileURLToPath(fileURL);
-const dirPath = dirname(filePath);
+const fileURL: any = import.meta.url;
+const filePath: any = fileURLToPath(fileURL);
+const dirPath: any = dirname(filePath);
 
-const dataSource = new typeorm.DataSource({
+const dataSource: any = new typeorm.DataSource({
   type: "postgres",
   host: process.env.DB_HOST || "localhost",
   port: Number(process.env.DB_PORT) || 5432,
