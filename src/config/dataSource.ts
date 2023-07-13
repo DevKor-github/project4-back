@@ -17,7 +17,7 @@ const dataSource = new typeorm.DataSource({
 	password: process.env.DB_PASSWORD || 'postgres',
 	database: process.env.DB_NAME || 'gongdol',
 	synchronize: true,
-	entities: [dirPath + '/../entity/prf.js'],
+	entities: [dirPath + '/../entity/prf.ts'],
 });
 
 export default dataSource;
