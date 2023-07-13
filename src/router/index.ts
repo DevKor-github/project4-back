@@ -1,6 +1,6 @@
 import express from 'express';
 
-import prfRouter from './prf.js';
+import prfRouter from './prf';
 
 const router = express.Router();
 
