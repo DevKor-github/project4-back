@@ -8,3 +8,11 @@ export const getPrfList = async (req, res, next) => {
 		next(err);
 	}
 };
+
+export const updateDB = async (req,res,next) => {
+	try {
+		await prfService.updateDB();
+	} catch(err) {
+		next(err);
+	}
+}

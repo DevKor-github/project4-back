@@ -4,16 +4,22 @@ const prfSchema = new EntitySchema({
 	name: 'prf',
 	tableName: 'prf',
 	columns: {
-		id: {
-			type: 'int',
-			primary: true,
-			generated: true,
+		prfId: {
+		  type: "varchar",
+		  primary: true,
 		},
-		name: {
-			type: 'varchar',
-			length: 255,
+		prfName: {
+		  type: "varchar",
 		},
-	},
+		prfSdate: {
+		  type: "date",
+		},
+		prfEdate: {
+		  type: "date",
+		}, 
+		prfStage: { type: "varchar" },
+		prfGenre: { type: "varchar" },
+	  },
 });
 
 export default prfSchema;
