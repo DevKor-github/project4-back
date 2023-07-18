@@ -5,12 +5,12 @@ import { promisify } from "util";
 import { LessThanOrEqual, MoreThanOrEqual, Like } from "typeorm";
 import * as schedule from "node-schedule";
 
-const prfRepository: any = dataSource.getRepository("prfDetail");
-const parser: any = new xml2js.Parser({ trim: true });
-const parseStringPromise: any = promisify(parser.parseString);
+const prfRepository = dataSource.getRepository("prf");
+const parser = new xml2js.Parser({ trim: true });
+const parseStringPromise: any = promisify(parser.parseString); //여기 any로 지정해주지 않으면 에러.. 공부해보기
 
 //모든 리스트 가져오기
-export const getPrfList: any = async () => {
+export const getPrfList = async () => {
   try {
     const prfList: any = await prfRepository.find();
     return prfList;
@@ -20,12 +20,12 @@ export const getPrfList: any = async () => {
 };
 
 //API에 get 요청해서 가져온 xml을 javascript 객체로 변환
-const xmlToJson = async (URL: any) => {
+const xmlToJson = async (URL: string) => {
   try {
-    const xmlData: any = await axios.get(URL);
+    const xmlData = await axios.get(URL);
 
-    const result: any = await parseStringPromise(xmlData.data);
-    const jsonData: any = result.dbs.db;
+    const result = await parseStringPromise(xmlData.data);
+    const jsonData = result.dbs.db;
     return jsonData;
   } catch (err) {
     console.error(err);
@@ -34,12 +34,12 @@ const xmlToJson = async (URL: any) => {
 
 export const Update = async () => {
   try {
-    const updateURL: any = `http://www.kopis.or.kr/openApi/restful/pblprfr?service=${process.env.API_KEY}&stdate=20230101&eddate=20251231&cpage=1&rows=10&shcate=CCCD%7CGGGA%7CAAAA&prfstate=01`;
-    const jsonData: any = await xmlToJson(updateURL);
+    const updateURL: string = `http://www.kopis.or.kr/openApi/restful/pblprfr?service=${process.env.API_KEY}&stdate=20230101&eddate=20251231&cpage=1&rows=10&shcate=CCCD%7CGGGA%7CAAAA&prfstate=01`;
+    const jsonData = await xmlToJson(updateURL);
 
     console.log(jsonData);
     for (const obj of jsonData) {
-      const exist: any = await prfRepository.findOne({
+      const exist = await prfRepository.findOne({
         where: { prfId: obj.mt20id },
       });
 
@@ -48,8 +48,8 @@ export const Update = async () => {
         console.log(`prfID : ${obj.mt20id} is already inserted`);
       } else {
         console.log(obj.mt20id);
-        const getDetailURL: any = `http://www.kopis.or.kr/openApi/restful/pblprfr/${obj.mt20id}?service=${process.env.API_KEY}`;
-        const jsonDetailData: any = await xmlToJson(getDetailURL);
+        const getDetailURL: string = `http://www.kopis.or.kr/openApi/restful/pblprfr/${obj.mt20id}?service=${process.env.API_KEY}`;
+        const jsonDetailData = await xmlToJson(getDetailURL);
         console.log(jsonDetailData);
         //행이 없음. 생성.
         await prfRepository.insert({
@@ -75,8 +75,8 @@ export const Update = async () => {
   }
 };
 
-//node-schedule단
-const automaticUpdate: any = new schedule.RecurrenceRule();
+//node-schedule단. 수요일 0시 0분 자동 업데이트.
+const automaticUpdate = new schedule.RecurrenceRule();
 automaticUpdate.dayOfWeek = 3;
 automaticUpdate.hour = 0;
 automaticUpdate.minute = 0;
@@ -88,11 +88,11 @@ schedule.scheduleJob(automaticUpdate, () => {
 
 //이름, 기간, 시설, 장르로 검색
 export const getSearchedPrfList = async (
-  prfName: any,
-  periodFrom: any,
-  periodTo: any,
-  fcltyName: any,
-  prfGenre: any
+  prfName: string,
+  periodFrom: Date,
+  periodTo: Date,
+  fcltyName: string,
+  prfGenre: string
 ) => {
   try {
     const prfList: any = await prfRepository.findBy({

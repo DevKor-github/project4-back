@@ -5,7 +5,7 @@ import dataSource from "./config/dataSource.js";
 import router from "./router/index.js";
 import errorHandler from "./middlewares/errorHandler.js";
 
-const connectDB: any = async () => {
+const connectDB = async () => {
   try {
     await dataSource.initialize();
     console.log("DB connected!");
@@ -14,7 +14,7 @@ const connectDB: any = async () => {
   }
 };
 
-const loadExpressApp: any = async () => {
+const loadExpressApp = async () => {
   await connectDB();
 
   const app: any = express();
@@ -34,12 +34,12 @@ const loadExpressApp: any = async () => {
   return app;
 };
 
-const startServer: any = async () => {
-  const app: any = await loadExpressApp();
+const startServer = async () => {
+  const app = await loadExpressApp();
 
-  const server: any = http.createServer(app);
+  const server = http.createServer(app);
 
-  const port: any = process.env.PORT || 3000;
+  const port = process.env.PORT || 3000;
 
   server.listen(port, () => {
     console.log(`Server is listening on port ${port}`);

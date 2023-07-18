@@ -5,11 +5,11 @@ import { dirname } from "path";
 
 dotenv.config();
 
-const fileURL: any = import.meta.url;
-const filePath: any = fileURLToPath(fileURL);
-const dirPath: any = dirname(filePath);
+const fileURL = import.meta.url;
+const filePath = fileURLToPath(fileURL);
+const dirPath = dirname(filePath);
 
-const dataSource: any = new typeorm.DataSource({
+const dataSource = new typeorm.DataSource({
   type: "postgres",
   host: process.env.DB_HOST || "localhost",
   port: Number(process.env.DB_PORT) || 5432,

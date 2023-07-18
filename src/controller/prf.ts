@@ -1,26 +1,38 @@
 import * as prfService from "../service/prfService.js";
-
-export const getPrfList: any = async (req: any, res: any, next: any) => {
+import { Request, Response, NextFunction } from "express";
+export const getPrfList = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const prfList: any = await prfService.getPrfList();
+    const prfList = await prfService.getPrfList();
     res.status(200).json(prfList);
   } catch (err) {
     next(err);
   }
 };
 
-export const getSearchedPrfList: any = async (
-  req: any,
-  res: any,
-  next: any
+interface queryParams {
+  prfName: string;
+  periodFrom: string;
+  periodTo: string;
+  fcltyName: string;
+  prfGenre: string;
+}
+
+export const getSearchedPrfList = async (
+  req: Request<{}, {}, {}, queryParams>,
+  res: Response,
+  next: NextFunction
 ) => {
   try {
-    const prfName: any = req.query.prfName;
-    const periodFrom: any = new Date(req.query.periodFrom || "2000-01-01");
-    const periodTo: any = new Date(req.query.periodTo || "2099-12-31");
-    const fcltyName: any = req.query.fcltyName;
-    const prfGenre: any = req.query.prfGenre;
-    const prfList: any = await prfService.getSearchedPrfList(
+    const prfName: string = req.query.prfName;
+    const periodFrom: Date = new Date(req.query.periodFrom || "2000-01-01");
+    const periodTo: Date = new Date(req.query.periodTo || "2099-12-31");
+    const fcltyName: string = req.query.fcltyName;
+    const prfGenre: string = req.query.prfGenre;
+    const prfList = await prfService.getSearchedPrfList(
       prfName,
       periodFrom,
       periodTo,
@@ -33,7 +45,11 @@ export const getSearchedPrfList: any = async (
   }
 };
 
-export const dbUpdate = async (req: any, res: any, next: any) => {
+export const dbUpdate = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     await prfService.Update();
     res.status(200).send("Successfully Updated");

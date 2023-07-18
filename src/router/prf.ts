@@ -1,7 +1,7 @@
 import * as express from "express";
 import * as prfController from "../controller/prf.js";
 
-const router: any = express.Router();
+const router = express.Router();
 
 router.get("/", prfController.getPrfList);
 //전체 리스트 받아오기

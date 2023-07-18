@@ -2,11 +2,11 @@ import * as express from "express";
 
 import prfRouter from "./prf.js";
 
-const router: any = express.Router();
+const router = express.Router();
 
 router.use("/prf", prfRouter);
 
-router.get("/", (req: any, res: any) => {
+router.get("/", (req: express.Request, res: express.Response) => {
   res.send("Hello World!");
 });
 
