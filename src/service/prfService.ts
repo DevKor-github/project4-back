@@ -2,7 +2,7 @@ import dataSource from '../config/dataSource';
 
 const prfRepository = dataSource.getRepository('prf');
 const prfService: any = {
-  insertPrf: async (prf: any): Promise<void> => {
+  insertPrf: async (prf: any) => {
     const id: string = prf.mt20id._text;
     const name: string = prf.prfnm._text;
     const prfpdfrom: string = prf.prfpdfrom._text;
@@ -38,7 +38,7 @@ const prfService: any = {
     }
   },
 
-  getPrfList: async (): Promise<any> => {
+  getPrfList: async () => {
     try {
       const prfList = await prfRepository.find();
       return prfList;

@@ -15,7 +15,7 @@ const connectDB = async (): Promise<void> => {
   }
 };
 
-const loadExpressApp = async (): Promise<express.Express> => {
+const loadExpressApp = async () => {
   await connectDB();
 
   const app: express.Express = express();
@@ -35,7 +35,7 @@ const loadExpressApp = async (): Promise<express.Express> => {
   return app;
 };
 
-const startServer = async (): Promise<void> => {
+const startServer = async () => {
   const app: express.Express = await loadExpressApp();
 
   const server: http.Server = http.createServer(app);

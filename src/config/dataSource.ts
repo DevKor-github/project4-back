@@ -13,11 +13,11 @@ const dataSource = new typeorm.DataSource({
 	type: 'postgres',
 	host: process.env.DB_HOST || 'localhost',
 	port: Number(process.env.DB_PORT) || 5432,
-	username: process.env.DB_USER || 'postgres',
-	password: process.env.DB_PASSWORD || 'postgres',
+	username: process.env.DB_USER || 'ohjunsang',
+	password: process.env.DB_PASSWORD || 'skscjswoek1',
 	database: process.env.DB_NAME || 'gongdol',
 	synchronize: true,
-	entities: [dirPath + '/../entity/prf.ts'],
+	entities: [dirPath + '/../entity/prf.ts', dirPath + '/../entity/user.ts'],
 });
 
 export default dataSource;
