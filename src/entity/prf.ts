@@ -1,12 +1,13 @@
-import { EntitySchema, Entity, PrimaryColumn, Column } from "typeorm";
+import { Fclty } from "./fclty.js";
+import { Entity, PrimaryColumn, Column, ManyToOne } from "typeorm";
 
 @Entity()
-export class prf {
+export class Prf {
   @PrimaryColumn()
   prfId: string;
 
-  @Column()
-  fcltyId: string;
+  @ManyToOne((type) => Fclty, (fclty) => fclty.prfs)
+  fclty: Fclty;
 
   @Column()
   prfName: string;
