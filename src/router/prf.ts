@@ -1,5 +1,5 @@
 import express from 'express';
-import * as prfController from '../controller/prf.js';
+import * as prfController from '../controller/prf';
 
 const router = express.Router();
 
