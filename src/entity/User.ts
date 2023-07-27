@@ -4,12 +4,15 @@ import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 export class User {
 
     @PrimaryGeneratedColumn()
-    id: number
+    num_id: string
+
+    @Column()
+    id: string
 
     @Column()
     name: string
 
     @Column()
-    password: boolean;
+    password: string
 
 }

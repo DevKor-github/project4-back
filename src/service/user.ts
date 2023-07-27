@@ -1,12 +1,11 @@
 import {Request, Response} from 'express';
 import dataSource from '../config/dataSource';
 import jwt from './jwt';
+import {User} from '../entity/User';
 
-const userData = dataSource.getRepository('user');
 const login = async(userInfo: {id:string, password: string}) => {
-    const id = userInfo.id;
-    const password = userInfo.password;
-    const user = await userData.findOne({where: {id:id}});
+    const {id, password} = userInfo;
+    const user = await dataSource.manager.findOne(User, {where:{id:id}});
     if(!user) return {success: false, msg: "wrong id"};
     else{
         if(password===user.password){
@@ -22,11 +21,11 @@ const login = async(userInfo: {id:string, password: string}) => {
 }
 
 const register = async(userInfo: {id:string, password: string, name: string}) => {
-    const id = userInfo.id;
-    const password = userInfo.password;
-    const name =userInfo.name;
-    if(await userData.findOne({where: {id:id}})) return {success: false, msg: "existed id"};
-    else await userData.insert({id, password, name});
+    if(await dataSource.manager.findOne(User, {where: {id:userInfo.id}})) return {success: false, msg: "existed id"};
+    const newUser = await dataSource.manager.create(User, userInfo);
+    dataSource.manager.save(newUser);
+    return {success: true, msg: "register success"}
+
 }
 
 export default {login, register};
