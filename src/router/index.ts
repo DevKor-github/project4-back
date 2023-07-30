@@ -1,13 +1,12 @@
 import express from 'express';
 
-import prfRouter from './prf.js';
+import prfRouter from './prf';
 
+import userRouter from './user';
 const router = express.Router();
 
 router.use('/prf', prfRouter);
+router.use('/user', userRouter);
 
-router.get('/', (req, res) => {
-	res.send('Hello World!');
-});
 
 export default router;

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "ES5",
+    "outDir": "./dist",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "lib": ["ES2015", "DOM", "DOM.Iterable"],
+    "typeRoots": ["./@types", "./node_modules/@types"],
+    "noImplicitAny": true,
+    "esModuleInterop": true ,//commonJS로 export한 모듈을 es6로 import,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

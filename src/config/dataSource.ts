@@ -1,15 +1,8 @@
-import typeorm from 'typeorm';
+import {DataSource} from 'typeorm';
 import dotenv from 'dotenv';
-import {fileURLToPath} from 'url';
-import {dirname} from 'path';
-
+import {join} from 'path';
 dotenv.config();
-
-const fileURL = import.meta.url;
-const filePath = fileURLToPath(fileURL);
-const dirPath = dirname(filePath);
-
-const dataSource = new typeorm.DataSource({
+const dataSource = new DataSource({
 	type: 'postgres',
 	host: process.env.DB_HOST || 'localhost',
 	port: Number(process.env.DB_PORT) || 5432,
@@ -17,7 +10,7 @@ const dataSource = new typeorm.DataSource({
 	password: process.env.DB_PASSWORD || 'postgres',
 	database: process.env.DB_NAME || 'gongdol',
 	synchronize: true,
-	entities: [dirPath + '/../entity/prf.js'],
+	entities: [join(__dirname, '/../entity/Prf.ts'), join(__dirname, '/../entity/User.ts')],
 });
 
 export default dataSource;
