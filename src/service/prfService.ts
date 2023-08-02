@@ -1,7 +1,7 @@
-import dataSource from "../config/dataSource.js";
+import dataSource from "../config/dataSource";
 import { LessThanOrEqual, MoreThanOrEqual, Like } from "typeorm";
 import * as schedule from "node-schedule";
-import xmlToJson from "./xmlToJson.js";
+import xmlToJson from "./xmlToJson";
 
 const prfRepository = dataSource.getRepository("Prf");
 const fcltyRepository = dataSource.getRepository("Fclty");

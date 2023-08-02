@@ -1,4 +1,4 @@
-import * as prfService from "../service/prfService.js";
+import * as prfService from "../service/prfService";
 import { Request, Response, NextFunction } from "express";
 export const getPrfList = async (
   req: Request,

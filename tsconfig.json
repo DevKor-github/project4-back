@@ -1,9 +1,12 @@
 {
+  "ts-node": {
+    "experimentalSpecifierResolution": "node"
+  },
   "compilerOptions": {
     "allowJs": true,
     "target": "ES6",
     "outDir": "./dist",
-    "module": "Es2022",
+    "module": "CommonJS",
     "moduleResolution": "Node",
     "lib": ["ES2015", "DOM", "DOM.Iterable"],
     "typeRoots": ["./@types", "./node_modules/@types"],

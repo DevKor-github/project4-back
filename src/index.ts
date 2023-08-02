@@ -1,9 +1,9 @@
 import express from "express";
 import * as http from "http";
 
-import dataSource from "./config/dataSource.js";
-import router from "./router/index.js";
-import errorHandler from "./middlewares/errorHandler.js";
+import dataSource from "./config/dataSource";
+import router from "./router/index";
+import errorHandler from "./middlewares/errorHandler";
 
 const connectDB = async () => {
   try {

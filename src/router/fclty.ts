@@ -1,5 +1,5 @@
 import * as express from "express";
-import * as fcltyController from "../controller/fclty.js";
+import * as fcltyController from "../controller/fclty";
 
 const router = express.Router();
 

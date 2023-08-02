@@ -1,13 +1,10 @@
-import { Fclty } from "./fclty.js";
 import { Entity, PrimaryColumn, Column, ManyToOne } from "typeorm";
+import { Fclty } from "./fclty";
 
 @Entity()
 export class Prf {
   @PrimaryColumn()
   prfId: string;
-
-  @ManyToOne((type) => Fclty, (fclty) => fclty.prfs)
-  fclty: Fclty;
 
   @Column()
   prfName: string;
@@ -41,4 +38,7 @@ export class Prf {
 
   @Column()
   prfPoster: string;
+
+  @ManyToOne((type) => Fclty, (fclty) => fclty.prfs)
+  fclty: Fclty;
 }

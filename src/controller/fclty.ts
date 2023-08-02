@@ -1,4 +1,4 @@
-import * as fcltyService from "../service/fcltyService.js";
+import * as fcltyService from "../service/fcltyService";
 import { Request, Response, NextFunction } from "express";
 export const getFcltyList = async (
   req: Request,

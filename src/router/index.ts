@@ -1,9 +1,12 @@
 import * as express from "express";
 
-import prfRouter from "./prf.js";
-import fcltyRouter from "./fclty.js";
+import prfRouter from "./prf";
+import fcltyRouter from "./fclty";
+import userRouter from "./user";
 
 const router = express.Router();
+
+router.use("/user", prfRouter);
 
 router.use("/prf", prfRouter);
 

@@ -1,14 +1,15 @@
-import dataSource from "../config/dataSource.js";
+import dataSource from "../config/dataSource";
 import { Like } from "typeorm";
 import * as schedule from "node-schedule";
-import xmlToJson from "./xmlToJson.js";
+import xmlToJson from "./xmlToJson";
+import { Fclty } from "../entity/fclty";
 
-const fcltyRepository = dataSource.getRepository("Fclty");
+const fcltyRepository = dataSource.getRepository(Fclty);
 
 //모든 리스트 가져오기
 export const getFcltyList = async () => {
   try {
-    const fcltyList: any = await fcltyRepository.find();
+    const fcltyList: Array<Fclty> = await fcltyRepository.find();
     return fcltyList;
   } catch (err) {
     console.error(err);

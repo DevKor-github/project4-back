@@ -1,12 +1,9 @@
 import { Entity, PrimaryColumn, Column, OneToMany, ManyToOne } from "typeorm";
-import { Prf } from "./prf.js";
+import { Prf } from "./prf";
 @Entity()
 export class Fclty {
   @PrimaryColumn()
   fcltyId: string;
-
-  @OneToMany((type) => Prf, (prf) => prf.fclty)
-  prfs: Prf[];
 
   @Column()
   fcltyName: string;
@@ -28,4 +25,7 @@ export class Fclty {
 
   @Column()
   fcltylo: string;
+
+  @OneToMany((type) => Prf, (prf) => prf.fclty)
+  prfs: Prf[];
 }
