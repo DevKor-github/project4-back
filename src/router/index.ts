@@ -1,4 +1,5 @@
 import * as express from "express";
+const CookieParser = require("cookie-parser");
 
 import prfRouter from "./prf";
 import fcltyRouter from "./fclty";
@@ -6,7 +7,9 @@ import userRouter from "./user";
 
 const router = express.Router();
 
-router.use("/user", prfRouter);
+router.use(CookieParser());
+
+router.use("/user", userRouter);
 
 router.use("/prf", prfRouter);
 

@@ -16,7 +16,7 @@ export const login = async (id: string, password: string) => {
       const accessToken = jwt.sign(
         { userid: user.userid, username: user.username },
         process.env.SECRET_KEY,
-        { expiresIn: "1h" }
+        { expiresIn: "10s" } // 테스트 10s
       );
       const refreshToken = jwt.sign(
         { userid: user.userid, username: user.username },
@@ -29,9 +29,10 @@ export const login = async (id: string, password: string) => {
           { refreshtoken: refreshToken }
         );
       };
+      refreshTokenUpdate();
+
       return [accessToken, refreshToken];
-    }
-    //토큰 발급
+    } //로그인하고 토큰 발급
     else {
       console.log("비밀번호가 일치하지 않습니다."); // 에러처리, 리다이렉팅 나중에 하기
     }

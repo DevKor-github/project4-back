@@ -1,7 +1,12 @@
 import * as express from "express";
 import * as userController from "../controller/user";
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
 const router = express.Router();
+
+router.use(express.urlencoded({ extended: true }));
+router.use(cookieParser());
 
 router.post("/login", userController.login);
 //id, pw로 로그인

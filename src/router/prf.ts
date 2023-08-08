@@ -1,7 +1,10 @@
 import * as express from "express";
 import * as prfController from "../controller/prf";
+import auth from "../middlewares/auth";
 
 const router = express.Router();
+
+router.use(auth);
 
 router.get("/", prfController.getPrfList);
 //전체 리스트 받아오기

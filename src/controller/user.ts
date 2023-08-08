@@ -24,6 +24,7 @@ export const register = async (
   next: NextFunction
 ) => {
   try {
+    console.log(req.body.id);
     await userService.register(req.body.id, req.body.name, req.body.password);
     res.status(200).send("register success");
   } catch (err) {
@@ -40,6 +41,7 @@ export const logout = async (
     await userService.logout(req.body.id);
     res.clearCookie("accesstoken", { httpOnly: true, secure: true });
     res.clearCookie("refreshtoken", { httpOnly: true, secure: true });
+    console.log("로그아웃 성공");
     res.status(200).send("logout success");
   } catch (err) {
     next(err);

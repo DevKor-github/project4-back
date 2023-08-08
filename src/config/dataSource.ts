@@ -15,6 +15,7 @@ const dataSource = new typeorm.DataSource({
   entities: [
     join(__dirname, "../entity/prf.ts"),
     join(__dirname, "../entity/fclty.ts"),
+    join(__dirname, "../entity/user.ts"),
   ],
 });
 
